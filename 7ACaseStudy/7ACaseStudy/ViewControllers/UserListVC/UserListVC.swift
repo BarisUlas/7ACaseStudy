@@ -12,45 +12,19 @@ protocol UserListVCDelegate: AnyObject {
     func didSelectUser(_ user: User)
 }
 
-class UserListVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class UserListVC: UIViewController  {
 
-    private let viewModel: UserListVM
+    let viewModel: UserListVM
     private let tableView = UITableView()
     private let loadingIndicator = UIActivityIndicatorView(style: .large)
     private let loadingText = UILabel()
     weak var delegate: UserListVCDelegate?
     
     
-    // pragma MARK: UITableView Delegate Methods
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return viewModel.users.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = UITableViewCell(style: .subtitle, reuseIdentifier: "UserCell")
-        let user = viewModel.users[indexPath.row]
-        cell.textLabel?.text = user.name
-        cell.detailTextLabel?.text = user.email
-        cell.accessoryType = .disclosureIndicator
-        return cell
-    }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let selectedUser = viewModel.users[indexPath.row]
-        
-        delegate?.didSelectUser(selectedUser)
-        // Deselect the row after selection
-        tableView.deselectRow(at: indexPath, animated: true)
-    }
-    
-    // pragma MARK: -
-    
-    
     // pragma MARK: View Setup Methods
     private func setupNavigationTitle() {
-        title = "Users"
+        title = NSLocalizedString("USERS_STRING", comment: "")
     }
-    
     
     private func setupTableView() {
         
@@ -85,7 +59,8 @@ class UserListVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         loadingIndicator.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(loadingIndicator)
         
-        loadingText.text = "loading".uppercased()
+        loadingText.text = NSLocalizedString("LOADING_STRING", comment: "")
+            .uppercased()
         loadingText.alpha = 0.8
         loadingText.font = .systemFont(ofSize: 12, weight: .light)
         loadingText.translatesAutoresizingMaskIntoConstraints = false

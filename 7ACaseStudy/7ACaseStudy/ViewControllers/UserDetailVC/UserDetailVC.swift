@@ -37,9 +37,18 @@ class UserDetailVC: UIViewController {
     private func placeSegmentViews() {
         guard let user = user else { return }
         
-        setupSegmentView(withHeadline: "E-mail", withContent: user.email)
-        setupSegmentView(withHeadline: "Phone", withContent: user.phone)
-        setupSegmentView(withHeadline: "Website", withContent: user.website)
+        setupSegmentView(
+            withHeadline: NSLocalizedString("EMAIL_STRING", comment: ""),
+            withContent: user.email
+        )
+        setupSegmentView(
+            withHeadline: NSLocalizedString("PHONE_STRING", comment: ""),
+            withContent: user.phone
+        )
+        setupSegmentView(
+            withHeadline: NSLocalizedString("WEBSITE_STRING", comment: ""),
+            withContent: user.website
+        )
     }
     
     private func setupNavigationTitle() {
