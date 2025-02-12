@@ -8,19 +8,25 @@
 import Foundation
 
 class UserListVM {
+    private let userRepository: UserRepositoryProtocol
     var users: [User] = []
     var didReceiveUsers: (() -> Void)?
     
+    init(userRepository: UserRepositoryProtocol = UserRepository()) {
+        self.userRepository = userRepository
+    }
+    
     func loadUsers() {
-        NetworkManager.shared.fetchUsers { [weak self] users in
-            guard let self = self else { return }
-            guard let users = users else { return }
-            
-            self.users = users
-            
-            // notify the view on main queue
+        
+        userRepository.fetchUsers { [weak self] result in
             DispatchQueue.main.async {
-                self.didReceiveUsers?()
+                switch result {
+                case .success(let users):
+                    self?.users = users
+                    self?.didReceiveUsers?()
+                case .failure(let error):
+                    print("Failed to fetch users: \(error.localizedDescription)")
+                }
             }
         }
     }

@@ -103,6 +103,7 @@ class UserListVC: UIViewController  {
         setupTableView()
         setupLoadingView()
         showLoadingView()
+        
         viewModel.didReceiveUsers = { [weak self] in
             self?.hideLoadingView()
             self?.tableView.reloadData()
