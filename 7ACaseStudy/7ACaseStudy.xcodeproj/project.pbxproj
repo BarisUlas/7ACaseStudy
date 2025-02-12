@@ -14,7 +14,7 @@
 		4849EEF62D5C942000726EC8 /* Exceptions for "7ACaseStudy" folder in "7ACaseStudy" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
-				Info.plist,
+				Resources/Info.plist,
 			);
 			target = 4849EEE32D5C941F00726EC8 /* 7ACaseStudy */;
 		};
