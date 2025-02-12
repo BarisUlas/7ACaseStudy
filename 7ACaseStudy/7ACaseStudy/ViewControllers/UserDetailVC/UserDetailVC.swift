@@ -51,18 +51,19 @@ class UserDetailVC: UIViewController {
         
         // helper method to place the required fields inside the
         // vertical stack view.
-        setupSegmentView(
-            withHeadline: viewModel.emailHeadline,
-            withContent:  viewModel.emailContent
-        )
-        setupSegmentView(
-            withHeadline: viewModel.phoneHeadline,
-            withContent:  viewModel.phoneContent
-        )
-        setupSegmentView(
-            withHeadline: viewModel.websiteHeadline,
-            withContent:  viewModel.websiteContent
-        )
+        
+        let segments = [
+            (viewModel.emailHeadline, viewModel.emailContent),
+            (viewModel.phoneHeadline, viewModel.phoneContent),
+            (viewModel.websiteHeadline, viewModel.websiteContent)
+        ]
+        
+        segments.forEach { headline, content in
+            setupSegmentView(
+                withHeadline: headline,
+                withContent: content
+            )
+        }
     }
     
     private func setupNavigationTitle() {
