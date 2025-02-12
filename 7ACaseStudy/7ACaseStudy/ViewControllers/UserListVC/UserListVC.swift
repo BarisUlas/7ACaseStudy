@@ -15,7 +15,7 @@ protocol UserListVCDelegate: AnyObject {
 class UserListVC: UIViewController  {
 
     let viewModel: UserListVM
-    private let tableView = UITableView()
+    let tableView = UITableView()
     private let loadingIndicator = UIActivityIndicatorView(style: .large)
     private let loadingText = UILabel()
     weak var delegate: UserListVCDelegate?
