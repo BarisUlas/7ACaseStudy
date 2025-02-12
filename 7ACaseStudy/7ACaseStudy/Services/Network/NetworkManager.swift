@@ -34,7 +34,7 @@ class NetworkManager {
                 completion(users)
             }
             catch {
-                print(String(describing: error.localizedDescription))
+                condPrint(String(describing: error.localizedDescription))
                 completion(nil)
             }
         }.resume()

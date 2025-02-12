@@ -11,7 +11,8 @@ import UIKit
 class Coordinator: UserListVCDelegate {
     
     func didSelectUser(_ user: User) {
-        print("coordinator got \(user.name)")
+        condPrint("coordinator got \(user.name)")
+        showUserDetail(for: user)
     }
     
     private var navigationController: UINavigationController
@@ -30,5 +31,7 @@ class Coordinator: UserListVCDelegate {
     }
     
     func showUserDetail(for user: User) {
+        let userDetailVC = UserDetailVC(user: user)
+        navigationController.pushViewController(userDetailVC, animated: true)
     }
 }
