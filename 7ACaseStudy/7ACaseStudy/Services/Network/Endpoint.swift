@@ -5,6 +5,9 @@
 //  Created by Baris U. Cukur on 12.02.2025.
 //
 
+// This file just stores the endpoint URL.
+// Good for seperation of concerns.
+
 import Foundation
 
 struct Endpoint {

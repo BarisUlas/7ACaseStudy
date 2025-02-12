@@ -21,6 +21,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let window = UIWindow(windowScene: windowScene)
         let navigationController = UINavigationController()
         
+        // init the coordinator and use a navigationstack as root VC
         let coordinator = Coordinator(navigationController: navigationController)
         coordinator.start()
         

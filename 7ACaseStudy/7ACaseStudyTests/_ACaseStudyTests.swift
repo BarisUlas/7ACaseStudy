@@ -5,6 +5,8 @@
 //  Created by Baris U. Cukur on 12.02.2025.
 //
 
+// The test cases for the project.
+
 import XCTest
 @testable import CaseStudy7A
 
@@ -22,7 +24,8 @@ final class UserRepositoryTests: XCTestCase {
         super.tearDown()
     }
     
-    // test the actual networking layer of the app
+    // First test:
+    //   Test the actual networking layer of the app
     func testFetchUsersRealSuccess() {
         
         let expectation = XCTestExpectation(description: "Fetch users (real) successful")
@@ -40,8 +43,9 @@ final class UserRepositoryTests: XCTestCase {
     }
     
     
-    // test if mock class works as expected, as the next
-    // test will require the use of this class to make dummy users
+    // Second test:
+    //   test if mock class works as expected, as the next
+    //   test will require the use of this class to make dummy users
     func testFetchUsersMockSuccess() {
         
         let expectation = XCTestExpectation(description: "Fetch users (mock) successful")
@@ -61,15 +65,16 @@ final class UserRepositoryTests: XCTestCase {
         wait(for: [expectation], timeout: 5.0)
     }
     
-    
-    // this tests if the table view displays all the users
-    // by comparing the result of the fetch function of the
-    // (mock) user repo to the actual tableview on the view
+    // Third test:
+    //   Test if the table view displays all the users inside the
+    //   array by comparing the result of the fetch function of the
+    //   (mock) user repo to the actual tableview on the view
     func testTableViewEntryCount() {
         
         let expectation = XCTestExpectation(description: "TableView shows all of the users")
         var users: [User] = []
         
+        // create mock users
         for i in 0...10 {
             users.append(
                 User(name: "User \(i)",
@@ -79,6 +84,7 @@ final class UserRepositoryTests: XCTestCase {
             )
         }
         
+        // pass the mock user to the repo
         let userRepo = MockUserRepository()
         userRepo.hardcodedUsers = users
         
@@ -86,8 +92,10 @@ final class UserRepositoryTests: XCTestCase {
 
         let userListVC = UserListVC(viewModel: mockViewModel)
 
+        // force the view to load
         _ = userListVC.view
         
+        // call fetchUsers to fill the tableview
         userRepo.fetchUsers { _ in
             DispatchQueue.main.async {
                 XCTAssertEqual(userListVC.tableView.numberOfRows(inSection: 0), users.count, "Expected \(users.count) rows, but found \(userListVC.tableView.numberOfRows(inSection: 0))")

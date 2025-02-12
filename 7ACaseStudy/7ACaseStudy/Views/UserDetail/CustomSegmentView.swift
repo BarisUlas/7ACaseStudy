@@ -5,6 +5,15 @@
 //  Created by Baris U. Cukur on 12.02.2025.
 //
 
+// This is a custom view made for this project.
+// It consists of:
+//   Rounded gray rectangle (background)
+//   Headline label
+//   Content label
+
+// I've tried to make it look like the one used
+// in Phone app in iOS for consistency.
+
 import UIKit
 
 class CustomSegmentView: UIView {

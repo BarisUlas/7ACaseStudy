@@ -5,38 +5,33 @@
 //  Created by Baris U. Cukur on 12.02.2025.
 //
 
+// NetworkManager is a general (or base) class for
+// making network calls. It just makes the request
+// for the given URL, and returns the result
+
+// We will use this class to create UserRepository class
+// for decoding the results of the request. Enjoy the ride
+
 import Foundation
 
 class NetworkManager {
     
-    // use singleton for consistency
     static let shared = NetworkManager()
-    
     private init() {}
-    
-    func fetchUsers(completion: @escaping ([User]?) -> Void) {
-        guard let url = URL(string: Endpoint.URL) else {
-            condPrint("unable to fetch items")
-            completion(nil)
-            return
-        }
-        
+
+    func fetchData(from url: URL, completion: @escaping (Result<Data, Error>) -> Void) {
         URLSession.shared.dataTask(with: url) { data, response, error in
-            
-            guard let data = data, error == nil else {
-                condPrint(String(describing: error?.localizedDescription))
-                completion(nil)
+            if let error = error {
+                completion(.failure(error))
                 return
             }
-            
-            do {
-                let users = try JSONDecoder().decode([User].self, from: data)
-                completion(users)
+
+            guard let data = data else {
+                completion(.failure(NSError(domain: "", code: 1, userInfo: [NSLocalizedDescriptionKey: "No data received"])))
+                return
             }
-            catch {
-                condPrint(String(describing: error.localizedDescription))
-                completion(nil)
-            }
+
+            completion(.success(data))
         }.resume()
     }
 }
